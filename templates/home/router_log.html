@@ -1,0 +1,48 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock title %}
+<!-- Specific Page CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Log du routeur</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="./">Home</a></li>
+        <li class="breadcrumb-item">Pages</li>
+        <li class="breadcrumb-item active" aria-current="page">Blank Page</li>
+      </ol>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <!-- Simple Tables -->
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th>Date & Heure</th>
+                  <th>Sujet</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for rl in r_router_log %}
+                  <tr>
+                    <td><a href="#">{{rl.time}}</a></td>
+                    <td>{{rl.topics}}</td>
+                    <td>{{rl.message}}</td>
+                  </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

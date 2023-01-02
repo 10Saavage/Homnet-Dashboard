@@ -3,10 +3,13 @@ import uuid
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.template import loader
+from django.http import HttpResponse
 
 from .forms import RouterForm
 from .models import Routers, Interface
 
+router = ros_api.Api('192.168.134.10', user='admin', password='admin', port=8728)
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -110,3 +113,20 @@ def get_router_name(username, ipaddress, password):
 
 def generate_serial_number():
     return str(uuid.uuid4())
+
+def router_log(request):
+    r = router.talk('/log/print')
+    template = loader.get_template('home/router_log.html')
+    context = {
+        'r_router_log':r
+    }
+    return HttpResponse(template.render(context, request))
+
+def active_user(request):
+    r = router.talk('/user/active/print')
+    template = loader.get_template('home/active_user.html')
+    context = {
+        'r_active_user':r
+        
+    }
+    return HttpResponse(template.render(context, request))
